@@ -25,9 +25,9 @@ def train_datasplit(mode,train_data_csv,train_data_encode,spt_num,seed,no_shuffl
         indices_dict[value] = indices
     
     F_idx_data={}
-    F_data={} #字典F_data，其键为子任务名称（即药物smiles编码），其值为子任务对应的2项数据support_samples,query_samples,每个样本的格式为Data(x, edge_index, y, target, c_size)
+    F_data={} 
     for k in indices_dict.keys():
-        F_data[k]=[[],[]]  #F_data[k]代表了“预测k药物与各个蛋白亲和力”的子任务。且前两列为支撑集数据（特征矩阵+标签），后两列为查询集数据（特征矩阵+预测标签）
+        F_data[k]=[[],[]]  
         if no_shuffle:
             F_idx_data[k]=[[],[]]
             for v in indices_dict[k]:
@@ -65,8 +65,5 @@ def train_datasplit(mode,train_data_csv,train_data_encode,spt_num,seed,no_shuffl
             F_data[i][1]=F_data[i][0][n_spt:]  
             F_data[i][0]=F_data[i][0][:n_spt]   
     
-    # if no_shuffle:
-    #     return F_data,F_idx_data #{药物分子：[[spt_samples],[qry_samples]]}
-    # else:
     return F_data
 
